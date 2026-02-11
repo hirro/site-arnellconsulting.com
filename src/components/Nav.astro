@@ -1,83 +1,185 @@
 ---
 const currentPath = Astro.url.pathname;
+const isHome = currentPath === '/';
 const navItems = [
-  { href: '/', label: 'Home' },
-  { href: '/about/', label: 'About' },
-  { href: '/team/', label: 'Team' },
-  { href: '/contact/', label: 'Contact' },
+  { href: '/#services', label: 'Services' },
+  { href: '/#team', label: 'Team' },
+  { href: '/#contact', label: 'Contact' },
 ];
 ---
-<header class="nav">
+<header class="nav" id="top">
   <div class="container nav__inner">
-    <a href="/" class="nav__brand">Arnell Consulting</a>
-    <nav class="nav__links" aria-label="Main">
-      {
-        navItems.map(({ href, label }) => {
-          const isActive = currentPath === href || (href !== '/' && currentPath.startsWith(href));
-          return (
-            <a
-              href={href}
-              class:list={['nav__link', { 'nav__link--active': isActive }]}
-            >
-              {label}
-            </a>
-          );
-        })
-      }
-    </nav>
+    <a href="/" class="nav__brand">
+      <span class="nav__brand-name">Arnell Consulting</span>
+    </a>
+    <div class="nav__right">
+      <nav class="nav__links" aria-label="Main">
+        {
+          navItems.map(({ href, label }) => (
+            <a href={href} class="nav__link">{label}</a>
+          ))
+        }
+      </nav>
+      <a href="https://www.linkedin.com/in/jimarnell/" target="_blank" rel="noopener noreferrer" class="nav__social" aria-label="LinkedIn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+    </div>
+    <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+      <svg class="nav__toggle-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <svg class="nav__toggle-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
   </div>
+  <nav class="nav__mobile" aria-label="Mobile menu">
+    {
+      navItems.map(({ href, label }) => (
+        <a href={href} class="nav__mobile-link">{label}</a>
+      ))
+    }
+    <a href="https://www.linkedin.com/in/jimarnell/" target="_blank" rel="noopener noreferrer" class="nav__mobile-link">LinkedIn</a>
+  </nav>
 </header>
+
+<script>
+  const toggle = document.querySelector('.nav__toggle') as HTMLButtonElement;
+  const mobile = document.querySelector('.nav__mobile') as HTMLElement;
+  const mobileLinks = mobile?.querySelectorAll('.nav__mobile-link');
+
+  toggle?.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    mobile.classList.toggle('nav__mobile--open');
+  });
+
+  mobileLinks?.forEach((link) => {
+    link.addEventListener('click', () => {
+      toggle.setAttribute('aria-expanded', 'false');
+      mobile.classList.remove('nav__mobile--open');
+    });
+  });
+</script>
 
 <style>
   .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--color-bg);
     border-bottom: 1px solid var(--color-border);
-    background: var(--color-surface);
+    backdrop-filter: blur(12px);
   }
 
   .nav__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-block: var(--space-md) var(--space-lg);
+    padding-block: var(--space-lg);
     gap: var(--space-lg);
   }
 
   .nav__brand {
-    font-family: var(--font-serif);
-    font-weight: 500;
-    font-size: var(--text-lg);
-    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    text-decoration: none;
   }
 
-  .nav__brand:hover {
-    color: var(--color-accent);
+  .nav__brand-name {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: var(--text-lg);
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+  }
+
+  .nav__brand:hover .nav__brand-name {
+    color: var(--color-text-muted);
+  }
+
+  .nav__right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xl);
   }
 
   .nav__links {
     display: flex;
     gap: var(--space-xl);
-    flex-wrap: wrap;
   }
 
   .nav__link {
     font-size: var(--text-sm);
     font-weight: 500;
     color: var(--color-text-muted);
+    transition: color 0.2s ease;
   }
 
-  .nav__link:hover,
-  .nav__link--active {
-    color: var(--color-accent);
+  .nav__link:hover {
+    color: var(--color-text);
+  }
+
+  .nav__social {
+    color: var(--color-text-muted);
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav__social:hover {
+    color: var(--color-text);
+  }
+
+  .nav__toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: var(--space-xs);
+    cursor: pointer;
+    color: var(--color-text);
+  }
+
+  .nav__toggle-close {
+    display: none;
+  }
+
+  .nav__toggle[aria-expanded="true"] .nav__toggle-open {
+    display: none;
+  }
+
+  .nav__toggle[aria-expanded="true"] .nav__toggle-close {
+    display: block;
+  }
+
+  .nav__mobile {
+    display: none;
+    flex-direction: column;
+    padding: 0 var(--space-xl) var(--space-xl);
+    gap: var(--space-md);
+  }
+
+  .nav__mobile-link {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    color: var(--color-text);
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+  }
+
+  .nav__mobile-link:hover {
+    color: var(--color-text-muted);
   }
 
   @media (max-width: 640px) {
-    .nav__inner {
-      flex-direction: column;
-      align-items: flex-start;
+    .nav__right {
+      display: none;
     }
 
-    .nav__links {
-      gap: var(--space-md);
+    .nav__toggle {
+      display: block;
+    }
+
+    .nav__mobile--open {
+      display: flex;
     }
   }
 </style>

@@ -1,0 +1,76 @@
+---
+import type { Service } from '../data/services';
+
+interface Props {
+  service: Service;
+  index: number;
+}
+
+const { service, index } = Astro.props;
+---
+<article class="service-card">
+  <div class="service-card__number">{String(index + 1).padStart(2, '0')}</div>
+  <h3 class="service-card__title">{service.title}</h3>
+  <p class="service-card__desc">{service.description}</p>
+  <ul class="service-card__items">
+    {service.items.map((item) => (
+      <li class="service-card__item">{item}</li>
+    ))}
+  </ul>
+</article>
+
+<style>
+  .service-card {
+    padding: var(--space-2xl);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: border-color 0.2s ease;
+  }
+
+  .service-card:hover {
+    border-color: var(--color-text-muted);
+  }
+
+  .service-card__number {
+    font-family: var(--font-serif);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
+  }
+
+  .service-card__title {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    line-height: var(--line-snug);
+    letter-spacing: -0.01em;
+    margin: 0 0 var(--space-md);
+    color: var(--color-text);
+  }
+
+  .service-card__desc {
+    font-size: var(--text-sm);
+    line-height: var(--line-relaxed);
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-xl);
+  }
+
+  .service-card__items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .service-card__item {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    padding: 0.35rem 0.75rem;
+    background: var(--color-subtle);
+    border-radius: 100px;
+    color: var(--color-text);
+  }
+</style>
