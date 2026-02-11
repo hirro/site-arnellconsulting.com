@@ -1,16 +1,365 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import TeamCard from '../components/TeamCard.astro';
+import { services } from '../data/services';
+import { team } from '../data/team';
 ---
-<Layout title="Arnell Consulting" description="Arnell Consulting AB – consulting and advisory.">
-  <div class="section">
-    <div class="container container--narrow">
-      <h1 class="heading-hero">Arnell Consulting</h1>
-      <p class="text-lead">
-        We are arnellconsulting AB – a consulting company dedicated to delivering clarity and results.
+<Layout title="Arnell Consulting — Technology & Business Consulting" description="Arnell Consulting AB is a Stockholm-based consulting firm specializing in software development, cloud infrastructure, security, and business controlling.">
+  
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <p class="label fade-up">Stockholm, Sweden</p>
+      <h1 class="hero__heading fade-up fade-up-delay-1">
+        We bring clarity to<br />technology & business
+      </h1>
+      <p class="hero__lead fade-up fade-up-delay-2">
+        Arnell Consulting is a boutique consultancy delivering expert services in software development, cloud infrastructure, security, and financial analysis.
       </p>
-      <p>
-        <a href="/about/">Learn more about us</a> or <a href="/team/">meet our team</a>. For inquiries, <a href="/contact/">get in touch</a>.
-      </p>
+      <div class="hero__actions fade-up fade-up-delay-3">
+        <a href="#services" class="btn btn--primary">Our Services</a>
+        <a href="#contact" class="btn btn--outline">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ticker -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <span class="ticker__item">Full Stack Development</span>
+      <span class="ticker__sep">&middot;</span>
+      <span class="ticker__item">Azure & Cloud</span>
+      <span class="ticker__sep">&middot;</span>
+      <span class="ticker__item">Security</span>
+      <span class="ticker__sep">&middot;</span>
+      <span class="ticker__item">DevOps</span>
+      <span class="ticker__sep">&middot;</span>
+      <span class="ticker__item">Business Controlling</span>
+      <span class="ticker__sep">&middot;</span>
+      <span class="ticker__item">Financial Analysis</span>
+      <span class="ticker__sep">&middot;</span>
+      <span class="ticker__item">Process Improvement</span>
+      <span class="ticker__sep">&middot;</span>
+      <span class="ticker__item">Full Stack Development</span>
+      <span class="ticker__sep">&middot;</span>
+      <span class="ticker__item">Azure & Cloud</span>
+      <span class="ticker__sep">&middot;</span>
+      <span class="ticker__item">Security</span>
+      <span class="ticker__sep">&middot;</span>
+      <span class="ticker__item">DevOps</span>
+      <span class="ticker__sep">&middot;</span>
+      <span class="ticker__item">Business Controlling</span>
+      <span class="ticker__sep">&middot;</span>
+      <span class="ticker__item">Financial Analysis</span>
+      <span class="ticker__sep">&middot;</span>
+      <span class="ticker__item">Process Improvement</span>
+      <span class="ticker__sep">&middot;</span>
     </div>
   </div>
+
+  <!-- Services -->
+  <section class="section" id="services">
+    <div class="container">
+      <p class="label">What We Do</p>
+      <h2 class="heading-1">Expertise across technology and business</h2>
+      <p class="text-lead">
+        We cover the full spectrum — from building and securing software systems to financial steering and operational analysis.
+      </p>
+      <div class="services-grid">
+        {services.map((service, i) => (
+          <ServiceCard service={service} index={i} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about-section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-grid__left">
+          <p class="label">About</p>
+          <h2 class="heading-1">A focused consulting firm built on experience</h2>
+        </div>
+        <div class="about-grid__right">
+          <p class="about__text">
+            Founded in 2005, Arnell Consulting AB brings together deep technical expertise and sharp business acumen. Based in Stockholm, we work closely with our clients to deliver solutions that are practical, well-crafted, and lasting.
+          </p>
+          <p class="about__text">
+            Our approach is straightforward: understand the problem, apply the right expertise, and deliver with clarity. No overhead, no complexity for its own sake.
+          </p>
+          <div class="about-stats">
+            <div class="about-stat">
+              <span class="about-stat__number">20+</span>
+              <span class="about-stat__label">Years of experience</span>
+            </div>
+            <div class="about-stat">
+              <span class="about-stat__number">2</span>
+              <span class="about-stat__label">Senior consultants</span>
+            </div>
+            <div class="about-stat">
+              <span class="about-stat__number">2005</span>
+              <span class="about-stat__label">Founded</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="section" id="team">
+    <div class="container">
+      <p class="label">Our Team</p>
+      <h2 class="heading-1">The people behind the work</h2>
+      <p class="text-lead">
+        Two senior consultants with complementary expertise — one in technology, one in business.
+      </p>
+      <div class="team-grid">
+        {team.map((member) => (
+          <TeamCard member={member} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-inner">
+        <p class="label contact-label">Contact</p>
+        <h2 class="contact-heading">Let's start a conversation</h2>
+        <p class="contact-lead">
+          Whether you need technical expertise or business advisory, we'd like to hear from you. Reach out via LinkedIn or email.
+        </p>
+        <div class="contact-actions">
+          <a href="https://www.linkedin.com/in/jimarnell/" target="_blank" rel="noopener noreferrer" class="btn btn--primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            Connect on LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </Layout>
+
+<style>
+  /* Hero */
+  .hero {
+    padding-top: var(--space-5xl);
+    padding-bottom: var(--space-4xl);
+  }
+
+  .hero__heading {
+    font-family: var(--font-serif);
+    font-size: var(--text-hero);
+    font-weight: 400;
+    line-height: var(--line-tight);
+    letter-spacing: -0.03em;
+    margin: 0 0 var(--space-xl);
+    color: var(--color-text);
+    text-wrap: balance;
+  }
+
+  .hero__lead {
+    font-size: var(--text-lg);
+    line-height: var(--line-relaxed);
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-2xl);
+    max-width: 540px;
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  /* Ticker */
+  .ticker {
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding-block: var(--space-lg);
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+
+  .ticker__track {
+    display: flex;
+    gap: var(--space-lg);
+    animation: scroll 25s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+
+  .ticker__item {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text-muted);
+  }
+
+  .ticker__sep {
+    color: var(--color-border);
+  }
+
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* Services grid */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+    margin-top: var(--space-2xl);
+  }
+
+  /* About section */
+  .about-section {
+    padding-block: var(--space-5xl);
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  .about-grid__left .heading-1 {
+    margin-bottom: 0;
+  }
+
+  .about__text {
+    font-size: var(--text-base);
+    line-height: var(--line-relaxed);
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-lg);
+  }
+
+  .about-stats {
+    display: flex;
+    gap: var(--space-2xl);
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-2xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .about-stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .about-stat__number {
+    font-family: var(--font-serif);
+    font-size: var(--text-3xl);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+  }
+
+  .about-stat__label {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* Team grid */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+    margin-top: var(--space-2xl);
+  }
+
+  /* Contact section */
+  .contact-section {
+    padding-block: var(--space-5xl);
+    background: var(--color-dark);
+  }
+
+  .contact-inner {
+    text-align: center;
+    max-width: 560px;
+    margin-inline: auto;
+  }
+
+  .contact-label {
+    color: var(--color-dark-muted);
+  }
+
+  .contact-heading {
+    font-family: var(--font-serif);
+    font-size: var(--text-4xl);
+    font-weight: 400;
+    line-height: var(--line-tight);
+    letter-spacing: -0.03em;
+    color: var(--color-dark-text);
+    margin: 0 0 var(--space-lg);
+    text-wrap: balance;
+  }
+
+  .contact-lead {
+    font-size: var(--text-base);
+    line-height: var(--line-relaxed);
+    color: var(--color-dark-muted);
+    margin: 0 0 var(--space-2xl);
+  }
+
+  .contact-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .contact-actions .btn--primary {
+    background: var(--color-dark-text);
+    color: var(--color-dark);
+    border-color: var(--color-dark-text);
+  }
+
+  .contact-actions .btn--primary:hover {
+    background: var(--color-dark-muted);
+    border-color: var(--color-dark-muted);
+    color: var(--color-dark);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero {
+      padding-top: var(--space-3xl);
+      padding-bottom: var(--space-3xl);
+    }
+
+    .services-grid,
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+
+    .about-stats {
+      gap: var(--space-xl);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .about-stats {
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+  }
+</style>
