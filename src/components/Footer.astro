@@ -1,0 +1,52 @@
+---
+const currentYear = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container footer__inner">
+    <p class="footer__copy text-muted">
+      &copy; {currentYear} Arnell Consulting AB
+    </p>
+    <nav class="footer__links" aria-label="Footer">
+      <a href="/about/">About</a>
+      <a href="/team/">Team</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--color-border);
+    background: var(--color-surface);
+    margin-top: auto;
+  }
+
+  .footer__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: var(--space-xl);
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  .footer__copy {
+    margin: 0;
+  }
+
+  .footer__links {
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .footer__links a {
+    font-size: var(--text-sm);
+  }
+
+  @media (max-width: 640px) {
+    .footer__inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

@@ -1,0 +1,41 @@
+---
+import type { TeamMember } from '../data/team';
+
+interface Props {
+  member: TeamMember;
+}
+
+const { member } = Astro.props;
+---
+<article class="team-card">
+  <h3 class="team-card__name">{member.name}</h3>
+  {member.role && <p class="team-card__role text-muted">{member.role}</p>}
+  <a href={member.linkedIn} target="_blank" rel="noopener noreferrer" class="team-card__link">
+    LinkedIn
+  </a>
+</article>
+
+<style>
+  .team-card {
+    padding: var(--space-xl);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+
+  .team-card__name {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: 500;
+    margin: 0 0 var(--space-xs);
+  }
+
+  .team-card__role {
+    margin: 0 0 var(--space-md);
+  }
+
+  .team-card__link {
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+</style>

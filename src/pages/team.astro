@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TeamCard from '../components/TeamCard.astro';
+import { team } from '../data/team';
+---
+<Layout
+  title="Team – Arnell Consulting"
+  description="Meet the team at Arnell Consulting AB – Jim Arnell and Jonna Arnell."
+>
+  <div class="section">
+    <div class="container">
+      <h1 class="heading-1">Team</h1>
+      <p class="text-lead">
+        The people behind Arnell Consulting AB.
+      </p>
+      <div class="team-grid">
+        {team.map((member) => (
+          <TeamCard member={member} />
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-xl);
+    margin-top: var(--space-2xl);
+  }
+</style>
