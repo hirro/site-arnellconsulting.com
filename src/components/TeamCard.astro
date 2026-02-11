@@ -10,7 +10,11 @@ const { member } = Astro.props;
 <article class="team-card">
   <div class="team-card__header">
     <div class="team-card__avatar">
-      <span class="team-card__initials">{member.name.split(' ').map(n => n[0]).join('')}</span>
+      {member.image ? (
+        <img src={member.image} alt="" class="team-card__photo" width="56" height="56" />
+      ) : (
+        <span class="team-card__initials">{member.name.split(' ').map(n => n[0]).join('')}</span>
+      )}
     </div>
     <div>
       <h3 class="team-card__name">{member.name}</h3>
@@ -55,6 +59,13 @@ const { member } = Astro.props;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .team-card__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .team-card__initials {

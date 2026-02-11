@@ -19,7 +19,7 @@ import { team } from '../data/team';
       </p>
       <div class="hero__actions fade-up fade-up-delay-3">
         <a href="#services" class="btn btn--primary">Our Services</a>
-        <a href="#contact" class="btn btn--outline">Get in Touch</a>
+        <a href="#team" class="btn btn--outline">Our Team</a>
       </div>
     </div>
   </section>
@@ -59,7 +59,7 @@ import { team } from '../data/team';
   </div>
 
   <!-- Services -->
-  <section class="section" id="services">
+  <section class="section services-section" id="services">
     <div class="container">
       <p class="label">What We Do</p>
       <h2 class="heading-1">Expertise across technology and business</h2>
@@ -120,25 +120,6 @@ import { team } from '../data/team';
         {team.map((member) => (
           <TeamCard member={member} />
         ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section class="contact-section" id="contact">
-    <div class="container">
-      <div class="contact-inner">
-        <p class="label contact-label">Contact</p>
-        <h2 class="contact-heading">Let's start a conversation</h2>
-        <p class="contact-lead">
-          Whether you need technical expertise or business advisory, we'd like to hear from you. Reach out via LinkedIn or email.
-        </p>
-        <div class="contact-actions">
-          <a href="https://www.linkedin.com/in/jimarnell/" target="_blank" rel="noopener noreferrer" class="btn btn--primary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-            Connect on LinkedIn
-          </a>
-        </div>
       </div>
     </div>
   </section>
@@ -207,6 +188,21 @@ import { team } from '../data/team';
   @keyframes scroll {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
+  }
+
+  /* Services section */
+  .services-section {
+    background: #629FAD;
+  }
+
+  .services-section .label,
+  .services-section .heading-1,
+  .services-section .text-lead {
+    color: var(--color-dark-text);
+  }
+
+  .services-section .text-lead {
+    opacity: 0.95;
   }
 
   /* Services grid */
@@ -279,59 +275,6 @@ import { team } from '../data/team';
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-xl);
     margin-top: var(--space-2xl);
-  }
-
-  /* Contact section */
-  .contact-section {
-    padding-block: var(--space-5xl);
-    background: var(--color-dark);
-  }
-
-  .contact-inner {
-    text-align: center;
-    max-width: 560px;
-    margin-inline: auto;
-  }
-
-  .contact-label {
-    color: var(--color-dark-muted);
-  }
-
-  .contact-heading {
-    font-family: var(--font-heading);
-    font-size: var(--text-4xl);
-    font-weight: 700;
-    line-height: var(--line-tight);
-    letter-spacing: -0.03em;
-    color: var(--color-dark-text);
-    margin: 0 0 var(--space-lg);
-    text-wrap: balance;
-  }
-
-  .contact-lead {
-    font-size: var(--text-base);
-    line-height: var(--line-relaxed);
-    color: var(--color-dark-muted);
-    margin: 0 0 var(--space-2xl);
-  }
-
-  .contact-actions {
-    display: flex;
-    justify-content: center;
-    gap: var(--space-md);
-    flex-wrap: wrap;
-  }
-
-  .contact-actions .btn--primary {
-    background: var(--color-dark-text);
-    color: var(--color-dark);
-    border-color: var(--color-dark-text);
-  }
-
-  .contact-actions .btn--primary:hover {
-    background: var(--color-dark-muted);
-    border-color: var(--color-dark-muted);
-    color: var(--color-dark);
   }
 
   /* Responsive */

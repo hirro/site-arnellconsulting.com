@@ -12,6 +12,12 @@
   --color-dark-text: #EDEDCE;
   --color-dark-muted: #629FAD;
 
+  /* Nav: distinct bar using palette (deep teal + cream) */
+  --color-nav-bg: #296374;
+  --color-nav-text: #EDEDCE;
+  --color-nav-text-hover: #ffffff;
+  --color-nav-border: rgba(12, 44, 85, 0.2);
+
   --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
   --font-heading: "Inter", system-ui, -apple-system, sans-serif;
 

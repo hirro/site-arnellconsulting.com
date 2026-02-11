@@ -4,6 +4,8 @@ export interface TeamMember {
   bio: string;
   expertise: string[];
   linkedIn: string;
+  /** Optional profile image path (in public/), e.g. "/images/team/jim-arnell.jpg" */
+  image?: string;
 }
 
 export const team: TeamMember[] = [
@@ -20,6 +22,7 @@ export const team: TeamMember[] = [
       'TypeScript',
     ],
     linkedIn: 'https://www.linkedin.com/in/jimarnell/',
+    image: '/images/team/jim-arnell.png',
   },
   {
     name: 'Jonna Arnell',
@@ -33,5 +36,6 @@ export const team: TeamMember[] = [
       'Business Analysis',
     ],
     linkedIn: 'https://www.linkedin.com/in/jonna-arnell-84abb95/',
+    image: '/images/team/jonna-arnell.png',
   },
 ];
