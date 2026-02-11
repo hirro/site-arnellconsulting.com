@@ -1,3 +1,160 @@
 ---
-return Astro.redirect('/#contact');
+import Layout from '../layouts/Layout.astro';
 ---
+<Layout
+  title="Contact — Arnell Consulting"
+  description="Contact Arnell Consulting AB. Address: Winges väg 6, 139 60 Värmdö, Sweden. IT: jim@arnellconsulting.com, Finance: jonna@arnellconsulting.com."
+>
+  <section class="contact-page">
+    <div class="container">
+      <p class="label">Contact</p>
+      <h1 class="contact-page__heading">Get in touch</h1>
+      <p class="contact-page__lead">
+        Reach us by post or email. For technology and development inquiries, contact Jim. For finance and business controlling, contact Jonna.
+      </p>
+
+      <div class="contact-grid">
+        <div class="contact-card contact-card--address">
+          <h2 class="contact-card__title">Address</h2>
+          <address class="contact-card__content">
+            <span class="contact-card__company">Arnell Consulting AB</span>
+            <span>Winges väg 6</span>
+            <span>139 60 Värmdö</span>
+            <span>Sweden</span>
+          </address>
+        </div>
+
+        <div class="contact-card">
+          <h2 class="contact-card__title">IT</h2>
+          <p class="contact-card__content">
+            <a href="mailto:jim@arnellconsulting.com" class="contact-card__link">jim@arnellconsulting.com</a>
+          </p>
+          <p class="contact-card__hint">Technology and development</p>
+        </div>
+
+        <div class="contact-card">
+          <h2 class="contact-card__title">Finance</h2>
+          <p class="contact-card__content">
+            <a href="mailto:jonna@arnellconsulting.com" class="contact-card__link">jonna@arnellconsulting.com</a>
+          </p>
+          <p class="contact-card__hint">Business controlling and analysis</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .contact-page {
+    padding-top: var(--space-5xl);
+    padding-bottom: var(--space-5xl);
+  }
+
+  .contact-page__heading {
+    font-family: var(--font-heading);
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    line-height: var(--line-tight);
+    letter-spacing: -0.03em;
+    color: var(--color-text);
+    margin: 0 0 var(--space-md);
+    text-wrap: balance;
+  }
+
+  .contact-page__lead {
+    font-size: var(--text-lg);
+    line-height: var(--line-relaxed);
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-3xl);
+    max-width: 540px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    margin-top: var(--space-2xl);
+  }
+
+  .contact-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .contact-card:hover {
+    border-color: var(--color-text-muted);
+    box-shadow: 0 4px 20px rgba(12, 44, 85, 0.06);
+  }
+
+  .contact-card--address {
+    grid-row: span 2;
+    justify-content: center;
+  }
+
+  .contact-card__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .contact-card__content {
+    font-size: var(--text-base);
+    line-height: var(--line-relaxed);
+    color: var(--color-text);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    font-style: normal;
+  }
+
+  .contact-card--address .contact-card__content {
+    font-style: normal;
+  }
+
+  .contact-card__company {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .contact-card__link {
+    font-weight: 500;
+    color: var(--color-accent);
+    font-size: var(--text-lg);
+  }
+
+  .contact-card__link:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+  }
+
+  .contact-card__hint {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-card--address {
+      grid-row: span 1;
+    }
+
+    .contact-page__heading {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>
