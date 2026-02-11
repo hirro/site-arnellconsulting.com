@@ -1,19 +1,19 @@
 /* Arnell Consulting -- global styles */
 :root {
-  --color-bg: #f7f7f5;
+  --color-bg: #EDEDCE;
   --color-surface: #ffffff;
-  --color-text: #141414;
-  --color-text-muted: #6b6b6b;
-  --color-accent: #141414;
-  --color-accent-hover: #3a3a3a;
-  --color-border: #e2e2df;
-  --color-subtle: #edeceb;
-  --color-dark: #141414;
-  --color-dark-text: #f7f7f5;
-  --color-dark-muted: #a3a3a3;
+  --color-text: #0C2C55;
+  --color-text-muted: #296374;
+  --color-accent: #296374;
+  --color-accent-hover: #0C2C55;
+  --color-border: #c8d3b8;
+  --color-subtle: #dce8eb;
+  --color-dark: #0C2C55;
+  --color-dark-text: #EDEDCE;
+  --color-dark-muted: #629FAD;
 
   --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
-  --font-serif: "Fraunces", "Georgia", serif;
+  --font-heading: "Inter", system-ui, -apple-system, sans-serif;
 
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
@@ -106,9 +106,9 @@ img {
 
 /* Typography */
 .heading-hero {
-  font-family: var(--font-serif);
+  font-family: var(--font-heading);
   font-size: var(--text-hero);
-  font-weight: 400;
+  font-weight: 700;
   line-height: var(--line-tight);
   letter-spacing: -0.03em;
   margin: 0 0 var(--space-xl);
@@ -116,9 +116,9 @@ img {
 }
 
 .heading-1 {
-  font-family: var(--font-serif);
+  font-family: var(--font-heading);
   font-size: var(--text-3xl);
-  font-weight: 400;
+  font-weight: 700;
   line-height: var(--line-snug);
   letter-spacing: -0.02em;
   margin: 0 0 var(--space-md);
@@ -126,9 +126,9 @@ img {
 }
 
 .heading-2 {
-  font-family: var(--font-serif);
+  font-family: var(--font-heading);
   font-size: var(--text-2xl);
-  font-weight: 400;
+  font-weight: 600;
   line-height: var(--line-snug);
   letter-spacing: -0.01em;
   margin: 0 0 var(--space-md);
