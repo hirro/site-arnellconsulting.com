@@ -1,29 +1,105 @@
 ---
-// Crab component - appears after inactivity and crawls around avoiding text
+// Crab easter egg — peeks up after inactivity, sidles after the pointer,
+// dances when it reaches it, and scurries off for good when clicked.
+// Skipped entirely for visitors who prefer reduced motion.
+
+const legs = [
+  { d: 'M72 112 Q52 106 44 112 L30 132', tip: 'M31 131 L27 139' },
+  { d: 'M76 122 Q56 122 48 130 L38 150', tip: 'M39 149 L36 157' },
+  { d: 'M86 130 Q70 136 64 146 L60 164', tip: 'M60 162 L59 169' },
+];
+const speckles = [
+  [96, 90, 2.5, 0.55],
+  [152, 86, 2, 0.55],
+  [142, 110, 2.5, 0.45],
+  [100, 114, 2, 0.45],
+  [164, 100, 1.8, 0.5],
+];
 ---
 
-<div id="crab-container" class="crab-container" style="display: none;">
-  <div class="crab">
-    <div class="crab-body">
-      <div class="crab-eye crab-eye-left"></div>
-      <div class="crab-eye crab-eye-right"></div>
-      <div class="crab-claw crab-claw-left">
-        <div class="crab-claw-top"></div>
-        <div class="crab-claw-bottom"></div>
-      </div>
-      <div class="crab-claw crab-claw-right">
-        <div class="crab-claw-top"></div>
-        <div class="crab-claw-bottom"></div>
-      </div>
-      <div class="crab-legs">
-        <div class="crab-leg crab-leg-left-1"></div>
-        <div class="crab-leg crab-leg-left-2"></div>
-        <div class="crab-leg crab-leg-left-3"></div>
-        <div class="crab-leg crab-leg-right-1"></div>
-        <div class="crab-leg crab-leg-right-2"></div>
-        <div class="crab-leg crab-leg-right-3"></div>
-      </div>
-    </div>
+<div id="crab-container" class="crab-container" style="display: none;" aria-hidden="true">
+  <div class="crab" title="Click me">
+    <svg class="c-svg" viewBox="0 0 240 180" width="96" height="72">
+      <ellipse cx="120" cy="170" rx="72" ry="7" fill="#0C2C55" fill-opacity="0.14"></ellipse>
+      <g class="c-crab">
+        <g class="c-legs">
+          {legs.map((leg, i) => (
+            <g class={`c-leg c-leg-${i + 1}`}>
+              <path d={leg.d} fill="none" stroke="#C24A35" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d={leg.tip} stroke="#8C2F22" stroke-width="5" stroke-linecap="round"></path>
+            </g>
+          ))}
+          <g transform="translate(240 0) scale(-1 1)">
+            {legs.map((leg, i) => (
+              <g class={`c-leg c-leg-${i + 4}`}>
+                <path d={leg.d} fill="none" stroke="#C24A35" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d={leg.tip} stroke="#8C2F22" stroke-width="5" stroke-linecap="round"></path>
+              </g>
+            ))}
+          </g>
+        </g>
+
+        <g class="c-body">
+          <!-- Big claw (left) -->
+          <g class="c-arm c-arm-l">
+            <path d="M76 92 Q54 90 44 70" fill="none" stroke="#C24A35" stroke-width="10" stroke-linecap="round"></path>
+            <g transform="translate(44 70)">
+              <ellipse cx="-14" cy="-18" rx="19" ry="15" transform="rotate(-35 -14 -18)" fill="#D9573F"></ellipse>
+              <path d="M-28 -26 Q-44 -44 -32 -60 Q-26 -44 -14 -34 Z" fill="#D9573F"></path>
+              <path class="c-dactyl" d="M-16 -32 Q-16 -54 -2 -60 Q-6 -46 -6 -30 Z" fill="#C94E38"></path>
+              <ellipse cx="-8" cy="-10" rx="10" ry="5" transform="rotate(-35 -8 -10)" fill="#B03F2C"></ellipse>
+              <ellipse cx="-21" cy="-23" rx="6" ry="3.5" transform="rotate(-35 -21 -23)" fill="#F08A6E" fill-opacity="0.8"></ellipse>
+            </g>
+          </g>
+          <!-- Small claw (right) -->
+          <g transform="translate(240 0) scale(-1 1)">
+            <g transform="translate(76 92) scale(0.82) translate(-76 -92)">
+              <g class="c-arm c-arm-r">
+                <path d="M76 92 Q54 90 44 70" fill="none" stroke="#C24A35" stroke-width="10" stroke-linecap="round"></path>
+                <g transform="translate(44 70)">
+                  <ellipse cx="-14" cy="-18" rx="19" ry="15" transform="rotate(-35 -14 -18)" fill="#D9573F"></ellipse>
+                  <path d="M-28 -26 Q-44 -44 -32 -60 Q-26 -44 -14 -34 Z" fill="#D9573F"></path>
+                  <path class="c-dactyl" d="M-16 -32 Q-16 -54 -2 -60 Q-6 -46 -6 -30 Z" fill="#C94E38"></path>
+                  <ellipse cx="-8" cy="-10" rx="10" ry="5" transform="rotate(-35 -8 -10)" fill="#B03F2C"></ellipse>
+                </g>
+              </g>
+            </g>
+          </g>
+
+          <!-- Shell -->
+          <path d="M58 92 L49 87 L58 99 Z" fill="#D9573F"></path>
+          <path d="M182 92 L191 87 L182 99 Z" fill="#D9573F"></path>
+          <path d="M65 78 L57 71 L68 83 Z" fill="#D9573F"></path>
+          <path d="M175 78 L183 71 L172 83 Z" fill="#D9573F"></path>
+          <path d="M56 102 C56 72 86 58 120 58 C154 58 184 72 184 102 C184 124 156 134 120 134 C84 134 56 124 56 102 Z" fill="#D9573F"></path>
+          <path d="M60 110 C70 128 96 134 120 134 C144 134 170 128 180 110 C166 122 146 126 120 126 C94 126 74 122 60 110 Z" fill="#B03F2C"></path>
+          <path d="M78 80 C88 68 104 63 118 63" fill="none" stroke="#F08A6E" stroke-width="5" stroke-linecap="round" stroke-opacity="0.85"></path>
+          <circle cx="132" cy="66" r="3" fill="#F08A6E"></circle>
+          {speckles.map(([cx, cy, r, o]) => (
+            <circle cx={cx} cy={cy} r={r} fill="#FBE3D2" fill-opacity={o}></circle>
+          ))}
+          <ellipse cx="94" cy="104" rx="7" ry="4" fill="#F4A08A" fill-opacity="0.6"></ellipse>
+          <ellipse cx="146" cy="104" rx="7" ry="4" fill="#F4A08A" fill-opacity="0.6"></ellipse>
+          <path d="M112 104 Q120 111 128 104" fill="none" stroke="#5A1E16" stroke-width="2.5" stroke-linecap="round"></path>
+
+          <!-- Eyes on stalks -->
+          <g class="c-stalks">
+            <path d="M108 62 Q104 50 100 42" fill="none" stroke="#C94E38" stroke-width="6" stroke-linecap="round"></path>
+            <path d="M132 62 Q136 50 140 42" fill="none" stroke="#C94E38" stroke-width="6" stroke-linecap="round"></path>
+            <g class="c-eye">
+              <circle cx="100" cy="34" r="11" fill="#FFFDF8" stroke="#8C2F22" stroke-width="2"></circle>
+              <circle cx="102" cy="36" r="5" fill="#14213A"></circle>
+              <circle cx="104" cy="33.5" r="1.6" fill="#FFFFFF"></circle>
+            </g>
+            <g class="c-eye">
+              <circle cx="140" cy="34" r="11" fill="#FFFDF8" stroke="#8C2F22" stroke-width="2"></circle>
+              <circle cx="142" cy="36" r="5" fill="#14213A"></circle>
+              <circle cx="144" cy="33.5" r="1.6" fill="#FFFFFF"></circle>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
   </div>
 </div>
 
@@ -35,349 +111,116 @@
     transform: translateX(-50%);
     z-index: 9999;
     pointer-events: none;
-    transition: bottom 1s ease-out, left 0.3s linear;
-  }
-
-  .crab-container .crab {
-    pointer-events: auto;
-    cursor: pointer;
-  }
-
-  .crab-container.scurrying {
-    transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
-  .crab-container.scurrying .crab {
-    animation: scurry-animation 0.15s ease-in-out infinite;
-  }
-
-  @keyframes scurry-animation {
-    0%, 100% {
-      transform: translateY(0) rotate(0deg);
-    }
-    25% {
-      transform: translateY(-3px) rotate(-5deg);
-    }
-    50% {
-      transform: translateY(0) rotate(0deg);
-    }
-    75% {
-      transform: translateY(-3px) rotate(5deg);
-    }
-  }
-
-  .crab-container.visible {
-    /* bottom will be set by JavaScript */
-  }
-
-  .crab {
-    width: 60px;
-    height: 50px;
-    position: relative;
-    animation: crab-bob 2s ease-in-out infinite;
-  }
-
-  @keyframes crab-bob {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-5px);
-    }
-  }
-
-  .crab-body {
-    width: 50px;
-    height: 35px;
-    background: #dc143c;
-    border-radius: 50% 50% 40% 40%;
-    position: relative;
-    margin: 0 auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  }
-
-  .crab-eye {
-    width: 8px;
-    height: 8px;
-    background: #000;
-    border-radius: 50%;
-    position: absolute;
-    top: 8px;
-    animation: crab-blink 3s infinite;
-  }
-
-  @keyframes crab-blink {
-    0%, 90%, 100% {
-      height: 8px;
-    }
-    92%, 94% {
-      height: 1px;
-    }
-  }
-
-  .crab-eye-left {
-    left: 12px;
-  }
-
-  .crab-eye-right {
-    right: 12px;
-  }
-
-  .crab-claw {
-    position: absolute;
-    top: 15px;
-    width: 20px;
-    height: 20px;
-  }
-
-  .crab-claw-left {
-    left: -15px;
-    animation: crab-claw-left 1.5s ease-in-out infinite;
-  }
-
-  .crab-claw-right {
-    right: -15px;
-    animation: crab-claw-right 1.5s ease-in-out infinite;
-  }
-
-  @keyframes crab-claw-left {
-    0%, 100% {
-      transform: rotate(-10deg);
-    }
-    50% {
-      transform: rotate(10deg);
-    }
-  }
-
-  @keyframes crab-claw-right {
-    0%, 100% {
-      transform: rotate(10deg);
-    }
-    50% {
-      transform: rotate(-10deg);
-    }
-  }
-
-  .crab-claw-top,
-  .crab-claw-bottom {
-    width: 100%;
-    height: 50%;
-    background: #dc143c;
-    border-radius: 50% 50% 0 0;
-    position: absolute;
-  }
-
-  .crab-claw-top {
-    top: 0;
-    clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
-  }
-
-  .crab-claw-bottom {
-    bottom: 0;
-    clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);
-  }
-
-  .crab-legs {
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-  }
-
-  .crab-leg {
-    width: 3px;
-    height: 15px;
-    background: #dc143c;
-    border-radius: 2px;
-    position: relative;
-  }
-
-  .crab-leg-left-1,
-  .crab-leg-left-2,
-  .crab-leg-left-3 {
-    animation: crab-leg-left 0.8s ease-in-out infinite;
-  }
-
-  .crab-leg-right-1,
-  .crab-leg-right-2,
-  .crab-leg-right-3 {
-    animation: crab-leg-right 0.8s ease-in-out infinite;
-  }
-
-  @keyframes crab-leg-left {
-    0%, 100% {
-      transform: rotate(-15deg);
-    }
-    50% {
-      transform: rotate(15deg);
-    }
-  }
-
-  @keyframes crab-leg-right {
-    0%, 100% {
-      transform: rotate(15deg);
-    }
-    50% {
-      transform: rotate(-15deg);
-    }
+    transition: bottom 1s cubic-bezier(0.2, 0.8, 0.2, 1), left 0.3s linear;
   }
 
   .crab-container.moving {
     transition: left 0.3s linear, bottom 0.3s linear, transform 0.1s ease;
   }
 
-  .crab-container.dancing .crab {
-    animation: napoleon-dance-main 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  .crab-container.scurrying {
+    transition: left 0.8s cubic-bezier(0.5, 0, 0.75, 0.4);
   }
 
-  .crab-container.dancing .crab-body {
-    animation: napoleon-body-bounce 0.6s ease-in-out infinite;
+  .crab {
+    pointer-events: auto;
+    cursor: pointer;
+    filter: drop-shadow(0 6px 10px rgba(12, 44, 85, 0.12));
   }
 
-  .crab-container.dancing .crab-claw-left {
-    animation: napoleon-claw-left 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  .c-svg {
+    display: block;
+    overflow: visible;
   }
 
-  .crab-container.dancing .crab-claw-right {
-    animation: napoleon-claw-right 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  .c-svg g,
+  .c-svg path,
+  .c-svg ellipse,
+  .c-svg circle {
+    transform-box: fill-box;
   }
 
-  .crab-container.dancing .crab-leg-left-1,
-  .crab-container.dancing .crab-leg-left-2,
-  .crab-container.dancing .crab-leg-left-3 {
-    animation: napoleon-leg-left 0.6s ease-in-out infinite;
+  /* Always-on idle life */
+  .c-crab { transform-origin: 50% 100%; }
+  .c-body { transform-origin: 50% 100%; animation: c-bob 2.6s ease-in-out infinite; }
+  .c-stalks { transform-origin: 50% 100%; animation: c-sway 3.2s ease-in-out infinite; }
+  .c-eye { transform-origin: 50% 50%; animation: c-blink 4.2s ease-in-out infinite; }
+  .c-dactyl { transform-origin: 36% 97%; animation: c-pinch 3.6s ease-in-out infinite; }
+  .c-arm-r .c-dactyl { animation-delay: -0.4s; }
+  .c-arm { transform-origin: 100% 100%; }
+  .c-leg { transform-origin: 100% 0%; }
+
+  /* Chasing: legs step, body bobs faster */
+  .moving .c-body { animation-duration: 0.56s; }
+  .moving .c-leg { animation: c-step 0.28s ease-in-out infinite alternate; }
+  .moving .c-leg-2,
+  .moving .c-leg-4,
+  .moving .c-leg-6 { animation-delay: -0.14s; }
+
+  /* Dancing: claws pump, body bounces and tilts */
+  .dancing .c-body { animation: c-dance 0.9s ease-in-out infinite; }
+  .dancing .c-arm-l { animation: c-pump 0.45s ease-in-out infinite; }
+  .dancing .c-arm-r { animation: c-pump 0.45s ease-in-out -0.225s infinite; }
+  .dancing .c-leg { animation: c-step 0.45s ease-in-out infinite alternate; }
+  .dancing .c-leg-2,
+  .dancing .c-leg-4,
+  .dancing .c-leg-6 { animation-delay: -0.225s; }
+
+  /* Scurrying: legs blur, leaning into the run */
+  .scurrying .c-crab { transform: rotate(4deg); }
+  .scurrying .c-body { animation-duration: 0.3s; }
+  .scurrying .c-leg { animation: c-step 0.12s linear infinite alternate; }
+  .scurrying .c-leg-2,
+  .scurrying .c-leg-4,
+  .scurrying .c-leg-6 { animation-delay: -0.06s; }
+
+  @keyframes c-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+  @keyframes c-sway { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+  @keyframes c-blink { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(0.08); } }
+  @keyframes c-pinch {
+    0%, 68%, 100% { transform: rotate(0); }
+    74% { transform: rotate(-24deg); }
+    80% { transform: rotate(0); }
+    86% { transform: rotate(-24deg); }
+    92% { transform: rotate(0); }
+  }
+  @keyframes c-step { 0% { transform: rotate(-9deg); } 100% { transform: rotate(9deg); } }
+  @keyframes c-pump { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(30deg); } }
+  @keyframes c-dance {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    25% { transform: translateY(-8px) rotate(-6deg); }
+    50% { transform: translateY(0) rotate(0); }
+    75% { transform: translateY(-8px) rotate(6deg); }
   }
 
-  .crab-container.dancing .crab-leg-right-1,
-  .crab-container.dancing .crab-leg-right-2,
-  .crab-container.dancing .crab-leg-right-3 {
-    animation: napoleon-leg-right 0.6s ease-in-out infinite;
-  }
-
-  /* Napoleon Dynamite style - awkward, jerky, alternating movements */
-  @keyframes napoleon-dance-main {
-    0% {
-      transform: translateX(0) translateY(0) rotate(0deg);
-    }
-    12.5% {
-      transform: translateX(-8px) translateY(-5px) rotate(-8deg);
-    }
-    25% {
-      transform: translateX(0) translateY(-3px) rotate(0deg);
-    }
-    37.5% {
-      transform: translateX(8px) translateY(-5px) rotate(8deg);
-    }
-    50% {
-      transform: translateX(0) translateY(0) rotate(0deg);
-    }
-    62.5% {
-      transform: translateX(8px) translateY(-5px) rotate(8deg);
-    }
-    75% {
-      transform: translateX(0) translateY(-3px) rotate(0deg);
-    }
-    87.5% {
-      transform: translateX(-8px) translateY(-5px) rotate(-8deg);
-    }
-    100% {
-      transform: translateX(0) translateY(0) rotate(0deg);
-    }
-  }
-
-  @keyframes napoleon-body-bounce {
-    0%, 100% {
-      transform: scale(1) translateY(0);
-    }
-    25% {
-      transform: scale(1.05) translateY(-2px);
-    }
-    50% {
-      transform: scale(1) translateY(0);
-    }
-    75% {
-      transform: scale(1.05) translateY(-2px);
-    }
-  }
-
-  /* Left claw: up high, down low, alternating */
-  @keyframes napoleon-claw-left {
-    0% {
-      transform: rotate(-45deg) translateY(-15px) scale(1.3);
-    }
-    25% {
-      transform: rotate(45deg) translateY(10px) scale(1.1);
-    }
-    50% {
-      transform: rotate(-45deg) translateY(-15px) scale(1.3);
-    }
-    75% {
-      transform: rotate(45deg) translateY(10px) scale(1.1);
-    }
-    100% {
-      transform: rotate(-45deg) translateY(-15px) scale(1.3);
-    }
-  }
-
-  /* Right claw: opposite of left - down low, up high */
-  @keyframes napoleon-claw-right {
-    0% {
-      transform: rotate(45deg) translateY(10px) scale(1.1);
-    }
-    25% {
-      transform: rotate(-45deg) translateY(-15px) scale(1.3);
-    }
-    50% {
-      transform: rotate(45deg) translateY(10px) scale(1.1);
-    }
-    75% {
-      transform: rotate(-45deg) translateY(-15px) scale(1.3);
-    }
-    100% {
-      transform: rotate(45deg) translateY(10px) scale(1.1);
-    }
-  }
-
-  /* Left legs: kick out to the left */
-  @keyframes napoleon-leg-left {
-    0%, 100% {
-      transform: rotate(-20deg) translateX(-3px);
-    }
-    50% {
-      transform: rotate(-45deg) translateX(-8px) scaleY(1.2);
-    }
-  }
-
-  /* Right legs: kick out to the right */
-  @keyframes napoleon-leg-right {
-    0%, 100% {
-      transform: rotate(20deg) translateX(3px);
-    }
-    50% {
-      transform: rotate(45deg) translateX(8px) scaleY(1.2);
-    }
+  @media (prefers-reduced-motion: reduce) {
+    .crab-container { display: none !important; }
   }
 </style>
 
 <script>
-  (function() {
+  (function () {
     const INACTIVITY_TIME = 10000; // 10 seconds
-    const MOVE_INTERVAL = 50; // Update position every 50ms for smoother chasing
-    const MOVE_SPEED = 3; // pixels per update
-    const REACH_DISTANCE = 40; // Distance to consider "reached" the mouse
+    const MOVE_INTERVAL = 50; // ms between position updates
+    const MOVE_SPEED = 3; // px per update
+    const REACH_DISTANCE = 40; // px — close enough to "catch" the pointer
     const DANCE_DURATION = 10000; // 10 seconds of dancing
 
-    let inactivityTimer: NodeJS.Timeout | null = null;
-    let moveInterval: NodeJS.Timeout | null = null;
-    let danceTimer: NodeJS.Timeout | null = null;
-    let scurryTimer: NodeJS.Timeout | null = null;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const crabContainer = document.getElementById('crab-container');
+    if (!crabContainer) return;
+    const crab = crabContainer;
+
+    type Timer = ReturnType<typeof setTimeout>;
+    let inactivityTimer: Timer | null = null;
+    let moveInterval: ReturnType<typeof setInterval> | null = null;
+    let danceTimer: Timer | null = null;
+    let scurryTimer: Timer | null = null;
     let isVisible = false;
     let isDancing = false;
     let isScurrying = false;
-    let wasClicked = false; // Track if crab was clicked to prevent reappearing
+    let wasClicked = false;
     let currentX = 0;
     let currentY = 0;
     let mouseX = 0;
@@ -386,214 +229,139 @@
     let prevMouseY = 0;
     let hasMouseMoved = false;
 
-    const crabContainer = document.getElementById('crab-container');
-    if (!crabContainer) return;
-
-    // Reset inactivity timer on user activity
     function resetInactivityTimer() {
       if (inactivityTimer) {
         clearTimeout(inactivityTimer);
         inactivityTimer = null;
       }
-      
-      if (!isVisible) {
-        // Start timer to show crab
+      if (!isVisible && !wasClicked) {
         inactivityTimer = setTimeout(showCrab, INACTIVITY_TIME);
       }
     }
 
-    // Show crab from below
+    // Peek up from the bottom edge
     function showCrab() {
-      if (isVisible || wasClicked) return; // Don't show if it was clicked
-      
+      if (isVisible || wasClicked) return;
       isVisible = true;
-      crabContainer.style.display = 'block';
-      
-      // Start at bottom center
-      const viewportWidth = window.innerWidth;
-      currentX = viewportWidth / 2;
+      crab.style.display = 'block';
+
+      currentX = window.innerWidth / 2;
       currentY = window.innerHeight - 20;
-      
-      // Set initial position (off-screen at bottom)
-      crabContainer.style.left = currentX + 'px';
-      crabContainer.style.bottom = '-100px';
-      crabContainer.style.transform = 'translateX(-50%)';
-      
-      // Animate appearance from below
+
+      crab.style.left = currentX + 'px';
+      crab.style.bottom = '-100px';
+      crab.style.transform = 'translateX(-50%)';
+
       setTimeout(() => {
-        crabContainer.classList.add('visible');
-        crabContainer.style.bottom = '20px';
+        crab.classList.add('visible');
+        crab.style.bottom = '20px';
         setTimeout(() => {
-          crabContainer.classList.add('moving');
+          crab.classList.add('moving');
           startMoving();
         }, 1000);
       }, 100);
     }
 
-    // Hide crab
-    function hideCrab() {
-      if (!isVisible) return;
-      
-      isVisible = false;
-      isDancing = false;
-      isScurrying = false;
-      stopMoving();
-      stopDancing();
-      crabContainer.classList.remove('visible', 'dancing', 'scurrying');
-      
-      if (scurryTimer) {
-        clearTimeout(scurryTimer);
-        scurryTimer = null;
-      }
-      
-      setTimeout(() => {
-        crabContainer.style.display = 'none';
-        crabContainer.classList.remove('moving');
-      }, 1000);
-    }
-
-    // Start dancing
     function startDancing() {
       if (isDancing) return;
-      
       isDancing = true;
       stopMoving();
-      crabContainer.classList.add('dancing');
-      
-      // Stop dancing after 10 seconds and resume chasing
+      crab.classList.add('dancing');
+      crab.classList.remove('moving');
       danceTimer = setTimeout(() => {
         stopDancing();
         startMoving();
       }, DANCE_DURATION);
     }
 
-    // Stop dancing
     function stopDancing() {
       if (!isDancing) return;
-      
       isDancing = false;
-      crabContainer.classList.remove('dancing');
-      
+      crab.classList.remove('dancing');
       if (danceTimer) {
         clearTimeout(danceTimer);
         danceTimer = null;
       }
     }
 
-    // Make crab scurry off to the right
+    // Clicked: run off to the right and never come back this visit
     function scurryAway() {
       if (!isVisible || isScurrying) return;
-      
-      wasClicked = true; // Mark as clicked so it won't reappear
+      wasClicked = true;
       isScurrying = true;
       stopMoving();
       stopDancing();
-      
-      // Clear inactivity timer so it won't try to show again
       if (inactivityTimer) {
         clearTimeout(inactivityTimer);
         inactivityTimer = null;
       }
-      
-      // Face right
-      crabContainer.style.transform = 'translateX(-50%) scaleX(1)';
-      
-      // Add scurry class for animation
-      crabContainer.classList.add('scurrying');
-      
-      // Move quickly to the right (off screen)
-      const targetX = window.innerWidth + 100;
-      currentX = targetX;
-      crabContainer.style.left = targetX + 'px';
-      
-      // After scurrying animation completes, hide permanently
+
+      crab.classList.remove('moving');
+      crab.style.transform = 'translateX(-50%) scaleX(1)';
+      crab.classList.add('scurrying');
+
+      currentX = window.innerWidth + 120;
+      crab.style.left = currentX + 'px';
+
       scurryTimer = setTimeout(() => {
-        crabContainer.classList.remove('scurrying');
+        crab.classList.remove('scurrying', 'visible');
         isScurrying = false;
         isVisible = false;
-        crabContainer.style.display = 'none';
-        crabContainer.classList.remove('visible', 'moving');
+        crab.style.display = 'none';
       }, 800);
     }
 
-    // Track mouse position
     function handleMouseMove(e: MouseEvent) {
       prevMouseX = mouseX;
       prevMouseY = mouseY;
       mouseX = e.clientX;
       mouseY = e.clientY;
       hasMouseMoved = true;
-      
-      // If mouse moved while dancing, break the dance and resume chasing
-      if (isDancing) {
-        const mouseDistance = Math.sqrt(
-          Math.pow(mouseX - prevMouseX, 2) + Math.pow(mouseY - prevMouseY, 2)
-        );
-        // Only break dance if mouse moved significantly (more than 5px)
-        if (mouseDistance > 5) {
-          stopDancing();
-          startMoving();
-        }
-      }
-      
-      // Only reset inactivity timer if crab is visible (to potentially hide it)
-      // If crab is not visible, don't reset - let the timer run so crab can appear
-      if (isVisible) {
-        resetInactivityTimer();
+
+      // A real pointer move breaks up the dance and the chase resumes
+      if (isDancing && Math.hypot(mouseX - prevMouseX, mouseY - prevMouseY) > 5) {
+        stopDancing();
+        startMoving();
       }
     }
 
-    // Start moving the crab - chases mouse pointer
+    // Sidle towards the pointer
     function startMoving() {
       if (moveInterval || isDancing || isScurrying) return;
-      
+      crab.classList.add('moving');
+
       moveInterval = setInterval(() => {
         if (!isVisible || isDancing || isScurrying) return;
-        
-        // If mouse hasn't moved, use center of screen as target
-        let targetX = hasMouseMoved ? mouseX : window.innerWidth / 2;
-        let targetY = hasMouseMoved ? mouseY : window.innerHeight / 2;
-        
-        // Calculate direction to mouse
+
+        const targetX = hasMouseMoved ? mouseX : window.innerWidth / 2;
+        const targetY = hasMouseMoved ? mouseY : window.innerHeight / 2;
         const dx = targetX - currentX;
         const dy = targetY - currentY;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        
-        // Check if reached the mouse pointer
+        const distance = Math.hypot(dx, dy);
+
         if (distance <= REACH_DISTANCE && hasMouseMoved) {
           startDancing();
           return;
         }
-        
-        // Move towards mouse
+
         if (distance > 0) {
           currentX += (dx / distance) * MOVE_SPEED;
           currentY += (dy / distance) * MOVE_SPEED;
         }
-        
-        // Keep crab within viewport bounds
-        const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight;
-        currentX = Math.max(30, Math.min(viewportWidth - 30, currentX));
-        currentY = Math.max(30, Math.min(viewportHeight - 30, currentY));
-        
-        // Update direction for crab orientation (flip based on movement direction)
+
+        currentX = Math.max(40, Math.min(window.innerWidth - 40, currentX));
+        currentY = Math.max(40, Math.min(window.innerHeight - 40, currentY));
+
         if (Math.abs(dx) > 1) {
-          if (dx > 0) {
-            crabContainer.style.transform = 'translateX(-50%) scaleX(1)';
-          } else {
-            crabContainer.style.transform = 'translateX(-50%) scaleX(-1)';
-          }
+          crab.style.transform = dx > 0 ? 'translateX(-50%) scaleX(1)' : 'translateX(-50%) scaleX(-1)';
         }
-        
-        // Update position (using left and bottom)
-        crabContainer.style.left = currentX + 'px';
-        crabContainer.style.bottom = (window.innerHeight - currentY) + 'px';
-        crabContainer.style.top = 'auto';
+
+        crab.style.left = currentX + 'px';
+        crab.style.bottom = window.innerHeight - currentY + 'px';
+        crab.style.top = 'auto';
       }, MOVE_INTERVAL);
     }
 
-    // Stop moving
     function stopMoving() {
       if (moveInterval) {
         clearInterval(moveInterval);
@@ -601,44 +369,25 @@
       }
     }
 
-    // Handle window resize
     function handleResize() {
-      if (isVisible) {
-        // Keep crab within bounds
-        currentX = Math.max(30, Math.min(window.innerWidth - 30, currentX));
-        currentY = Math.max(30, Math.min(window.innerHeight - 30, currentY));
-        crabContainer.style.left = currentX + 'px';
-        crabContainer.style.bottom = (window.innerHeight - currentY) + 'px';
-      }
+      if (!isVisible) return;
+      currentX = Math.max(40, Math.min(window.innerWidth - 40, currentX));
+      currentY = Math.max(40, Math.min(window.innerHeight - 40, currentY));
+      crab.style.left = currentX + 'px';
+      crab.style.bottom = window.innerHeight - currentY + 'px';
     }
 
-    // Handle crab click
-    function handleCrabClick(e: MouseEvent) {
+    crab.querySelector('.crab')?.addEventListener('click', (e) => {
       e.stopPropagation();
       scurryAway();
-    }
+    });
 
-    // Event listeners
     document.addEventListener('mousemove', handleMouseMove, { passive: true });
-    
-    // Add click listener to crab
-    if (crabContainer) {
-      const crabElement = crabContainer.querySelector('.crab');
-      if (crabElement) {
-        crabElement.addEventListener('click', handleCrabClick);
-      }
-    }
-    
-    // Only reset timer on significant user actions (not mouse movements)
-    // This allows the crab to appear after inactivity
-    const events = ['mousedown', 'keypress', 'scroll', 'touchstart'];
-    events.forEach(event => {
+    ['mousedown', 'keydown', 'scroll', 'touchstart'].forEach((event) => {
       document.addEventListener(event, resetInactivityTimer, { passive: true });
     });
-    
     window.addEventListener('resize', handleResize);
-    
-    // Start inactivity timer
+
     resetInactivityTimer();
   })();
 </script>

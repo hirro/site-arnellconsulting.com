@@ -1,5 +1,6 @@
 ---
 import type { Service } from '../data/services';
+import Icon from './Icon.astro';
 
 interface Props {
   service: Service;
@@ -8,69 +9,182 @@ interface Props {
 
 const { service, index } = Astro.props;
 ---
-<article class="service-card">
-  <div class="service-card__number">{String(index + 1).padStart(2, '0')}</div>
-  <h3 class="service-card__title">{service.title}</h3>
-  <p class="service-card__desc">{service.description}</p>
-  <ul class="service-card__items">
-    {service.items.map((item) => (
-      <li class="service-card__item">{item}</li>
-    ))}
-  </ul>
+<article class="service">
+  <div class="service__intro">
+    <span class="service__number">{String(index + 1).padStart(2, '0')}</span>
+    <h3 class="service__title">{service.title}</h3>
+    <p class="service__desc">{service.description}</p>
+  </div>
+
+  {service.groups && (
+    <div class="service__groups">
+      {service.groups.map((group) => (
+        <div class="service__group">
+          <Icon name={group.icon} size={28} strokeWidth={1.6} class="service__icon" />
+          <h4 class="service__group-title">{group.title}</h4>
+          <ul class="service__list">
+            {group.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  )}
+
+  {service.items && (
+    <ul class="service__tiles">
+      {service.items.map((item) => (
+        <li class="service__tile">
+          <Icon name={item.icon} size={24} strokeWidth={1.6} class="service__icon" />
+          <span>{item.label}</span>
+        </li>
+      ))}
+    </ul>
+  )}
 </article>
 
 <style>
-  .service-card {
-    padding: var(--space-2xl);
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    transition: border-color 0.2s ease;
+  .service {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 24px;
+    row-gap: 32px;
+    padding-top: 48px;
+    border-top: 1px solid var(--color-dark-line);
   }
 
-  .service-card:hover {
-    border-color: var(--color-text-muted);
-  }
-
-  .service-card__number {
-    font-family: var(--font-heading);
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-lg);
-  }
-
-  .service-card__title {
-    font-family: var(--font-heading);
-    font-size: var(--text-2xl);
-    font-weight: 600;
-    line-height: var(--line-snug);
-    letter-spacing: -0.01em;
-    margin: 0 0 var(--space-md);
-    color: var(--color-text);
-  }
-
-  .service-card__desc {
-    font-size: var(--text-sm);
-    line-height: var(--line-relaxed);
-    color: var(--color-text-muted);
-    margin: 0 0 var(--space-xl);
-  }
-
-  .service-card__items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .service__intro {
+    grid-column: span 4;
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
+    flex-direction: column;
+    gap: 20px;
+    padding-right: 24px;
   }
 
-  .service-card__item {
-    font-size: var(--text-xs);
+  .service__number {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--color-dark-accent);
+  }
+
+  .service__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.25rem, 3.2vw, 2.75rem);
+    line-height: 1.05;
+    color: var(--color-dark-text);
+  }
+
+  .service__desc {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: var(--line-relaxed);
+    color: var(--color-dark-muted);
+  }
+
+  .service__groups {
+    grid-column: 6 / span 7;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .service__group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 28px;
+    border-radius: var(--radius-md);
+    background: var(--color-dark-card);
+    border: 1px solid var(--color-dark-card-line);
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+  }
+
+  .service__group:hover,
+  .service__tile:hover {
+    background: rgba(237, 237, 206, 0.1);
+    border-color: rgba(237, 237, 206, 0.26);
+  }
+
+  :global(.service__icon) {
+    color: var(--color-dark-accent);
+    flex-shrink: 0;
+  }
+
+  .service__group-title {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-dark-text);
+  }
+
+  .service__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: var(--text-sm);
+    line-height: 1.4;
+    color: var(--color-dark-muted);
+  }
+
+  .service__tiles {
+    grid-column: 6 / span 7;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    align-content: start;
+  }
+
+  .service__tile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 28px;
+    border-radius: var(--radius-md);
+    background: var(--color-dark-card);
+    border: 1px solid var(--color-dark-card-line);
+    font-size: 17px;
     font-weight: 500;
-    padding: 0.35rem 0.75rem;
-    background: var(--color-subtle);
-    border-radius: 100px;
-    color: var(--color-text);
+    color: var(--color-dark-text);
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+  }
+
+  @media (max-width: 1080px) {
+    .service__intro,
+    .service__groups,
+    .service__tiles {
+      grid-column: 1 / -1;
+      padding-right: 0;
+    }
+
+    .service__desc {
+      max-width: 640px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .service__groups {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .service__tiles {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .service__group {
+      padding: 24px;
+    }
+
+    .service__tile {
+      padding: 18px 22px;
+    }
   }
 </style>

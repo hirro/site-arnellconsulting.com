@@ -1,40 +1,70 @@
+export type IconName =
+  | 'code'
+  | 'cloud'
+  | 'shield'
+  | 'chart'
+  | 'calendar'
+  | 'compass'
+  | 'ledger';
+
+export interface ServiceGroup {
+  title: string;
+  icon: IconName;
+  items: string[];
+}
+
+export interface ServiceItem {
+  label: string;
+  icon: IconName;
+}
+
 export interface Service {
   title: string;
   description: string;
-  items: string[];
+  /** Rendered as a set of titled cards (used for broad disciplines). */
+  groups?: ServiceGroup[];
+  /** Rendered as single-line tiles. */
+  items?: ServiceItem[];
 }
 
 export const services: Service[] = [
   {
-    title: 'Software Development',
+    title: 'Software development',
     description:
-      'Full stack development with modern frameworks and best practices. We build reliable, maintainable systems that scale. We cover infrastructure as code, CI/CD pipelines, and cloud-native solutions so you can build and operate with confidence — and we embed security thinking into every layer, from identity management to secure architecture.',
-    items: [
-      'Java',
-      'Python',
-      'TypeScript',
-      'Spring Boot',
-      'API Design',
-      'System Architecture',
-      'Web Applications (HTML, CSS, JavaScript, React, Svelte)',
-      'Azure',
-      'Infrastructure as Code',
-      'CI/CD',
-      'Containerization',
-      'Identity & Access (SAML, OIDC, OAUTH2)',
-      'PKI, PKCS, RADIUS, LDAP',
-      'Secure Architecture',
+      'Reliable, maintainable systems that scale — with infrastructure as code, CI/CD and security thinking built into every layer, from identity management to architecture.',
+    groups: [
+      {
+        title: 'Build',
+        icon: 'code',
+        items: [
+          'Java · Spring Boot',
+          'Python · TypeScript',
+          'API design',
+          'System architecture',
+          'Web apps — React, Svelte',
+        ],
+      },
+      {
+        title: 'Run',
+        icon: 'cloud',
+        items: ['Azure & cloud-native', 'Infrastructure as code', 'CI/CD pipelines', 'Containerization'],
+      },
+      {
+        title: 'Secure',
+        icon: 'shield',
+        items: ['SAML · OIDC · OAuth2', 'PKI · PKCS', 'RADIUS · LDAP', 'Secure architecture'],
+      },
     ],
   },
   {
-    title: 'Business Controlling',
+    title: 'Business controlling',
     description:
-      'Financial steering, analysis, and reporting. We bring clarity to complex business operations.',
+      'Financial steering, analysis and reporting that bring clarity to complex business operations.',
     items: [
-      'Financial Analysis',
-      'Budgeting & Forecasting',
-      'Operational Steering',
-      'Accounting',
+      { label: 'Financial analysis', icon: 'chart' },
+      { label: 'Budgeting & forecasting', icon: 'calendar' },
+      { label: 'Operational steering', icon: 'compass' },
+      { label: 'Accounting', icon: 'ledger' },
     ],
   },
 ];

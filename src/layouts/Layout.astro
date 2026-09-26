@@ -18,17 +18,22 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://arnellconsu
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0C2C55" />
+    <meta name="theme-color" content="#F4F1E8" />
     <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <title>{title}</title>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="layout">
       <Nav />
       <main class="main" id="main-content">
@@ -49,5 +54,21 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://arnellconsu
 
   .main {
     flex: 1;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: 16px;
+    top: -100px;
+    z-index: 200;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: var(--color-dark);
+    color: var(--color-dark-text);
+  }
+
+  .skip-link:focus {
+    top: 16px;
+    color: var(--color-dark-text);
   }
 </style>
