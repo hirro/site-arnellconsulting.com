@@ -1,57 +1,65 @@
 ---
-const currentPath = Astro.url.pathname;
-const isHome = currentPath === '/';
 const navItems = [
   { href: '/#services', label: 'Services' },
+  { href: '/#approach', label: 'Approach' },
   { href: '/#team', label: 'Team' },
-  { href: '/contact/', label: 'Contact' },
 ];
 ---
 <header class="nav" id="top">
   <div class="container nav__inner">
-    <a href="/" class="nav__brand">
-      <span class="nav__brand-name">Arnell Consulting AB</span>
+    <a href="/" class="nav__brand" aria-label="Arnell Consulting AB — home">
+      <span class="nav__brand-name">Arnell</span>
+      <span class="nav__brand-sub">Consulting AB</span>
     </a>
-    <div class="nav__right">
-      <nav class="nav__links" aria-label="Main">
-        {
-          navItems.map(({ href, label }) => (
-            <a href={href} class="nav__link">{label}</a>
-          ))
-        }
-      </nav>
-    </div>
-    <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
-      <svg class="nav__toggle-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      <svg class="nav__toggle-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <nav class="nav__links" aria-label="Main">
+      {navItems.map(({ href, label }) => (
+        <a href={href} class="nav__link">{label}</a>
+      ))}
+      <a href="/#contact" class="btn btn--primary btn--sm">Get in touch</a>
+    </nav>
+    <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg class="nav__toggle-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="16" x2="20" y2="16"/></svg>
+      <svg class="nav__toggle-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
   </div>
-  <nav class="nav__mobile" aria-label="Mobile menu">
-    {
-      navItems.map(({ href, label }) => (
+  <nav class="nav__mobile" id="mobile-menu" aria-label="Mobile menu">
+    <div class="container nav__mobile-inner">
+      {navItems.map(({ href, label }) => (
         <a href={href} class="nav__mobile-link">{label}</a>
-      ))
-    }
+      ))}
+      <a href="/#contact" class="nav__mobile-link">Contact</a>
+    </div>
   </nav>
 </header>
 
 <script>
-  const toggle = document.querySelector('.nav__toggle') as HTMLButtonElement;
-  const mobile = document.querySelector('.nav__mobile') as HTMLElement;
-  const mobileLinks = mobile?.querySelectorAll('.nav__mobile-link');
+  const toggle = document.querySelector('.nav__toggle') as HTMLButtonElement | null;
+  const mobile = document.querySelector('.nav__mobile') as HTMLElement | null;
+
+  function setOpen(open: boolean) {
+    if (!toggle || !mobile) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    mobile.classList.toggle('nav__mobile--open', open);
+  }
 
   toggle?.addEventListener('click', () => {
-    const expanded = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!expanded));
-    mobile.classList.toggle('nav__mobile--open');
+    setOpen(toggle.getAttribute('aria-expanded') !== 'true');
   });
 
-  mobileLinks?.forEach((link) => {
-    link.addEventListener('click', () => {
-      toggle.setAttribute('aria-expanded', 'false');
-      mobile.classList.remove('nav__mobile--open');
-    });
+  mobile?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setOpen(false));
   });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
+  });
+
+  // Subtle shadow once the page scrolls
+  const nav = document.querySelector('.nav');
+  const onScroll = () => nav?.classList.toggle('nav--scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 </script>
 
 <style>
@@ -59,69 +67,92 @@ const navItems = [
     position: sticky;
     top: 0;
     z-index: 100;
-    background: var(--color-nav-bg);
-    border-bottom: 1px solid var(--color-nav-border);
-    backdrop-filter: blur(12px);
+    background: rgba(244, 241, 232, 0.86);
+    backdrop-filter: saturate(1.4) blur(14px);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    border-bottom: 1px solid var(--color-border);
+    transition: box-shadow 0.25s ease;
+  }
+
+  .nav--scrolled {
+    box-shadow: 0 6px 24px -18px rgba(12, 44, 85, 0.35);
   }
 
   .nav__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-block: var(--space-lg);
+    min-height: 88px;
     gap: var(--space-lg);
   }
 
   .nav__brand {
     display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    text-decoration: none;
+    align-items: baseline;
+    gap: 10px;
+    color: var(--color-text);
+  }
+
+  .nav__brand:hover {
+    color: var(--color-text);
   }
 
   .nav__brand-name {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: var(--text-lg);
-    color: var(--color-nav-text);
-    letter-spacing: -0.02em;
+    font-family: var(--font-display);
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: -0.01em;
   }
 
-  .nav__brand:hover .nav__brand-name {
-    color: var(--color-nav-text-hover);
-  }
-
-  .nav__right {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2xl);
+  .nav__brand-sub {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
   }
 
   .nav__links {
     display: flex;
-    gap: var(--space-xl);
+    align-items: center;
+    gap: 40px;
   }
 
   .nav__link {
     font-size: var(--text-sm);
     font-weight: 500;
-    color: var(--color-nav-text);
-    opacity: 0.9;
-    transition: color 0.2s ease, opacity 0.2s ease;
+    color: var(--color-text);
+    position: relative;
   }
 
-  .nav__link:hover {
-    color: var(--color-nav-text-hover);
-    opacity: 1;
+  .nav__link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+
+  .nav__link:hover::after {
+    transform: scaleX(1);
   }
 
   .nav__toggle {
     display: none;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
     background: none;
-    border: none;
-    padding: var(--space-xs);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
     cursor: pointer;
-    color: var(--color-nav-text);
+    color: var(--color-text);
   }
 
   .nav__toggle-close {
@@ -138,35 +169,39 @@ const navItems = [
 
   .nav__mobile {
     display: none;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .nav__mobile-inner {
+    display: flex;
     flex-direction: column;
-    padding: 0 var(--space-xl) var(--space-xl);
-    gap: var(--space-md);
+    padding-block: var(--space-md) var(--space-xl);
   }
 
   .nav__mobile-link {
-    font-size: var(--text-lg);
-    font-weight: 500;
-    color: var(--color-nav-text);
-    padding: var(--space-sm) 0;
-    border-bottom: 1px solid var(--color-nav-border);
-    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 32px;
+    line-height: 1.2;
+    color: var(--color-text);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-border);
   }
 
-  .nav__mobile-link:hover {
-    color: var(--color-nav-text-hover);
-  }
+  @media (max-width: 760px) {
+    .nav__inner {
+      min-height: 72px;
+    }
 
-  @media (max-width: 640px) {
-    .nav__right {
+    .nav__links {
       display: none;
     }
 
     .nav__toggle {
-      display: block;
+      display: inline-flex;
     }
 
     .nav__mobile--open {
-      display: flex;
+      display: block;
     }
   }
 </style>
