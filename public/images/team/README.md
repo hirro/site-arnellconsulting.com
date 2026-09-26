@@ -2,8 +2,8 @@
 
 Place profile images here for the team section:
 
-- **jim-arnell.png** – Jim Arnell (square or portrait; will be cropped to a circle)
-- **jonna-arnell.png** – Jonna Arnell
+- **jim-arnell.jpg** – Jim Arnell (portrait, cropped to 4:5)
+- **jonna-arnell.jpg** – Jonna Arnell
 
 Use JPG or PNG. Recommended size: at least 200×200 px. Images are displayed at 56×56 px in a circle.
 

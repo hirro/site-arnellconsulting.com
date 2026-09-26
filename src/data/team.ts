@@ -27,7 +27,7 @@ export const team: TeamMember[] = [
     ],
     email: 'jim@arnellconsulting.com',
     linkedIn: 'https://www.linkedin.com/in/jimarnell/',
-    image: '/images/team/jim-arnell.png',
+    image: '/images/team/jim-arnell.jpg',
   },
   {
     name: 'Jonna Arnell',
@@ -43,6 +43,6 @@ export const team: TeamMember[] = [
     ],
     email: 'jonna@arnellconsulting.com',
     linkedIn: 'https://www.linkedin.com/in/jonna-arnell-84abb95/',
-    image: '/images/team/jonna-arnell.png',
+    image: '/images/team/jonna-arnell.jpg',
   },
 ];
